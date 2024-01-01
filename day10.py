@@ -108,15 +108,10 @@ def part2(file: str):
     # Replace S with pipe
     d_r1, d_c1 = path[1][0]-path[0][0], path[1][1]-path[0][1]
     d_r2, d_c2 = path[-2][0]-path[0][0], path[-2][1]-path[0][1]
-    print(d_r1, d_c1)
-    print(d_r2, d_c2)
-
     for pipe, pipe_val in PIPES.items():
         dirs = set(MAP_DIR[d] for d in pipe_val)
-        print(dirs)
         if {(d_r1, d_c1), (d_r2, d_c2)} == set(dirs):
             mat[start[0]][start[1]] = pipe
-            print(pipe)
             break
 
     for i in range(1, len(mat)-1):
@@ -140,11 +135,9 @@ def part2(file: str):
                     if mat[i][j+1] == "J":
                         inside = not inside
             j += 1
-
-    print("\n".join("".join(x) for x in mat))
-
     return sum(x == "I" for x in itertools.chain.from_iterable(mat))
 
 
 if __name__ == "__main__":
     print(part1("day10-input.txt"))
+    print(part2("day10-input.txt"))

@@ -22,9 +22,8 @@ def travelled_distance(pressed_time, total_time):
     return remaining_time * pressed_time
     
     
-def part1(races: list[tuple[int, int]]) -> None:
+def part1(races: list[tuple[int, int]]) -> int:
     res = []
-    
     for race in races:
         time, dist = race
         min_pressed_t = 0
@@ -38,13 +37,10 @@ def part1(races: list[tuple[int, int]]) -> None:
                 break
             max_pressed_t -= 1
         res.append(max_pressed_t - min_pressed_t + 1)
-        print(min_pressed_t, max_pressed_t)
-        
-    print(reduce(lambda x, y: x*y, res))
+    return reduce(lambda x, y: x*y, res)
 
 
 def part2(time: int, dist: int):
-    print(time, dist)
     min_pressed_t = 0
     while min_pressed_t < time:
         if travelled_distance(min_pressed_t, time) > dist:
@@ -55,12 +51,12 @@ def part2(time: int, dist: int):
         if travelled_distance(max_pressed_t, time) > dist:
             break
         max_pressed_t -= 1
-    print(max_pressed_t - min_pressed_t + 1)
+    return max_pressed_t - min_pressed_t + 1
 
 
 if __name__ == "__main__":
-    # r = get_input("day6-input.txt")
-    # part1(r)
+    r = get_input("day6-input.txt")
+    print(part1(r))
     
     t, d = get_input_no_kerning("day6-input.txt")
-    part2(t, d)
+    print(part2(t, d))

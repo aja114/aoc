@@ -46,16 +46,28 @@ def get_calib(s: str) -> int:
     return 0
 
 
-with open("day1-input.txt", "r") as f:
-   inp = f.readlines()
-
-s = 0
-for line in inp:
-    line = replace_digits(line)
-    print(line)
-    s += 10 * get_calib(line)
-    s += get_calib(line[::-1])
-
-print(s)
+def part1(file: str) -> int:
+    with open(file, "r") as f:
+        inp = f.readlines()
+    s = 0
+    for line in inp:
+        s += 10 * get_calib(line)
+        s += get_calib(line[::-1])
+    return s
 
 
+def part2(file: str) -> int:
+    with open(file, "r") as f:
+        inp = f.readlines()
+
+    s = 0
+    for line in inp:
+        line = replace_digits(line)
+        s += 10 * get_calib(line)
+        s += get_calib(line[::-1])
+    return s
+
+
+if __name__ == '__main__':
+    print(part1("day1-input.txt"))
+    print(part2("day1-input.txt"))

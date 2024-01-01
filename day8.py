@@ -18,7 +18,7 @@ def get_input(file: str) -> tuple[list[str], dict[str, dict[str, str]]]:
     return instruction_str, nodes
 
 
-def part1(file: str):
+def part1(file: str) -> int:
     inst, n = get_input(file)
     i = 0
     start = "AAA"
@@ -27,12 +27,11 @@ def part1(file: str):
     while curr_node != target:
         curr_node = n[curr_node][inst[i % len(inst)]]
         i += 1
-    print(i)
+    return i
 
 
 def part2(file: str):
     inst, nodes = get_input(file)
-    i = 0
     start_nodes = [
         n for n in nodes.keys()
         if n[-1] == "A"
@@ -42,8 +41,6 @@ def part2(file: str):
         if n[-1] == "Z"
     )
     cur_nodes = start_nodes
-    print(cur_nodes)
-    print(target_nodes)
     node_step = {}
     for start in cur_nodes:
         i = 0
@@ -52,8 +49,9 @@ def part2(file: str):
             curr_node = nodes[curr_node][inst[i % len(inst)]]
             i += 1
         node_step[start] = i
-    print(lcm(*node_step.values()))
+    return lcm(*node_step.values())
 
 
 if __name__ == "__main__":
-    part2("day8-input.txt")
+    print(part1("day8-input.txt"))
+    print(part2("day8-input.txt"))

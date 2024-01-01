@@ -14,7 +14,7 @@ def extrapolate_start(l: list[int]) -> int:
     return l[0] - target
 
 
-def part1(file: str):
+def part1(file: str) -> int:
     with open(file, "r") as f:
         lines = [
             [int(n) for n in l.split(" ")]
@@ -23,10 +23,10 @@ def part1(file: str):
     s = 0
     for l in lines:
         s += extrapolate_end(l)
-    print(s)
+    return s
 
 
-def part2(file: str):
+def part2(file: str) -> int:
     with open(file, "r") as f:
         lines = [
             [int(n) for n in l.split(" ")]
@@ -35,8 +35,9 @@ def part2(file: str):
     s = 0
     for l in lines:
         s += extrapolate_start(l)
-    print(s)
+    return s
 
 
 if __name__ == "__main__":
-    part2("day9-input.txt")
+    print(part1("day9-input.txt"))
+    print(part2("day9-input.txt"))

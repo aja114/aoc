@@ -67,25 +67,38 @@ class Hand:
         return self.hand_strength < other.hand_strength
     
 
-def part1(h: list[Hand]):
+def part1(h: list[Hand]) -> int:
     sorted_hands = sorted(h)
-    print(sum([hand.bid*(i+1) for i, hand in enumerate(sorted_hands)]))
+    return sum([hand.bid*(i+1) for i, hand in enumerate(sorted_hands)])
     
     
-def part2(h: list[Hand]):
+def part2(h: list[Hand]) -> int:
     CARD_STRENGTH["J"] = -1
     sorted_hands = sorted(h)
-    print(sum([hand.bid*(i+1) for i, hand in enumerate(sorted_hands)]))
+    return sum([hand.bid*(i+1) for i, hand in enumerate(sorted_hands)])
+
+
+def get_input(file: str) -> list[Hand]:
+    hands = []
+    with open(file, "r") as f:
+        for line in f.readlines():
+            cards, bid = line.strip().split(" ")
+            hands.append(Hand(bid=int(bid), cards=cards, with_joker=False))
+    return hands
+
+
+def get_input_with_joker(file: str) -> list[Hand]:
+    hands_with_joker= []
+    with open(file, "r") as f:
+        for line in f.readlines():
+            cards, bid = line.strip().split(" ")
+            hands_with_joker.append(Hand(bid=int(bid), cards=cards, with_joker=True))
+    return hands_with_joker
 
 
 if __name__ == "__main__":
-    hands = []
-    hands_with_joker= []
-    with open("day7-input.txt", "r") as f:
-        for line in f.readlines():
-            cards, bid = line.strip().split(" ") 
-            hands.append(Hand(bid=int(bid), cards=cards, with_joker=False))
-            hands_with_joker.append(Hand(bid=int(bid), cards=cards, with_joker=True))
-    
-    part1(hands)
-    part2(hands_with_joker)
+    hands = get_input("day7-input.txt")
+    print(part1(hands))
+
+    hands_with_joker = get_input_with_joker("day7-input.txt")
+    print(part2(hands_with_joker))

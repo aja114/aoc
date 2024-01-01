@@ -68,7 +68,6 @@ def calc_condition(springs: list[str]):
 def part1(spring_inp: list[tuple[list[str]], tuple[int, ...]]) -> int:
     s = 0
     for i, (springs, target_condition) in enumerate(spring_inp):
-        print(i)
         s += find_spring_comb(springs, target_condition, {})
     return s
 
@@ -76,7 +75,6 @@ def part1(spring_inp: list[tuple[list[str]], tuple[int, ...]]) -> int:
 def part2(spring_inp: list[tuple[list[str]], tuple[int, ...]]) -> int:
     s = 0
     for i, (springs, target_condition) in enumerate(spring_inp):
-        print(i)
         unfolded_springs = ((springs + ["?"]) * 5)[:-1]
         unfolded_target_condition = target_condition * 5
         s += find_spring_comb(unfolded_springs, unfolded_target_condition, {})
@@ -86,3 +84,4 @@ def part2(spring_inp: list[tuple[list[str]], tuple[int, ...]]) -> int:
 if __name__ == "__main__":
     inp = get_input("day12-input.txt")
     print(part1(inp))
+    print(part2(inp))

@@ -16,17 +16,17 @@ def get_input(file: str) -> dict[int, tuple[list[str], list[str]]]:
     return input_
 
 
-def part1(cards: dict[int, tuple[list[str], list[str]]]):
+def part1(cards: dict[int, tuple[list[str], list[str]]]) -> int:
     s = 0
     for card in cards.values():
         winning_nums, scratched_nums = set(card[0]), set(card[1])
         count = len(set.intersection(scratched_nums, winning_nums))
         if count > 0:
             s += 2**(count-1)
-    print(s)
+    return s
     
 
-def part2(cards: dict[int, tuple[list[str], list[str]]]):
+def part2(cards: dict[int, tuple[list[str], list[str]]]) -> int:
     to_scratch = {
         card_id: 1
         for card_id in cards
@@ -39,9 +39,9 @@ def part2(cards: dict[int, tuple[list[str], list[str]]]):
         count = len(set.intersection(scratched_nums, winning_nums))
         for i in range(1, count+1):
             to_scratch[card_id + i] += repeat
-    print(sum(scratched.values()))
+    return sum(scratched.values())
 
 
 if __name__ == "__main__":
-    inp = get_input("day4-input.txt")
-    part2(inp)
+    print(part1(get_input("day4-input.txt")))
+    print(part2(get_input("day4-input.txt")))

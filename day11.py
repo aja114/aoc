@@ -27,7 +27,6 @@ def expand(galmap: list[list[str]], expansion_dist: int = 2) -> list[list[Point]
     for i, galcol in enumerate(zip(*galmap)):
         if all(x == "." for x in galcol):
             cols_to_expand.append(i)
-    print(rows_to_expand, cols_to_expand)
     expanded_map = [
         [Point(value=".", d_r=1, d_c=1) for _ in range(len(galmap[0]))]
         for _ in range(len(galmap))
@@ -72,7 +71,6 @@ def gal_dist(start_gal: int, target_gals: set[int], galmap: list[list[Point]]):
     }
     visited_points = set()
     while current_points:
-        # print(current_points)
         next_points = {}
         for current_point, dist in current_points.items():
             for d_r, d_c in [(0, -1), (0, 1), (1, 0)]:
@@ -93,25 +91,24 @@ def sum_gal_dist(galmap: list[list[Point]], num_gal: int) -> int:
     s = 0
     for n in range(num_gal):
         dists = gal_dist(n, set(range(n+1, num_gal)), galmap)
-        print(n)
         s += sum(dists.values())
     return s
     
 
-def part1(file: str):
+def part1(file: str) -> int:
     input_map = get_input(file)
     input_map = expand(input_map, expansion_dist=2)
     num_gal = name_gal_inplace(input_map)
-    print(sum_gal_dist(galmap=input_map, num_gal=num_gal))
+    return sum_gal_dist(galmap=input_map, num_gal=num_gal)
 
 
-def part2(file: str):
+def part2(file: str) -> int:
     input_map = get_input(file)
     input_map = expand(input_map, expansion_dist=1_000_000)
     num_gal = name_gal_inplace(input_map)
-    print(sum_gal_dist(galmap=input_map, num_gal=num_gal))
+    return sum_gal_dist(galmap=input_map, num_gal=num_gal)
 
 
 if __name__ == "__main__":
-    # part1("day11-input.txt")
-    part2("day11-input.txt")
+    print(part1("day11-input.txt"))
+    print(part2("day11-input.txt"))

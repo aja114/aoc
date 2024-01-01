@@ -43,16 +43,16 @@ def find_adj(mat: list[list[str]], pos: (int, int)):
     return nums
 
 
-def part1(mat: list[list[str]]):
+def part1(mat: list[list[str]]) -> int:
     s = 0
     for i in range(len(mat)):
         for j in range(len(mat[0])):
             if is_symbol(mat[i][j]):
                 s += sum(find_adj(mat, (i, j)))
-    print(s)
+    return s
 
 
-def part2(mat: list[list[str]]):
+def part2(mat: list[list[str]]) -> int:
     s = 0
     for i in range(len(mat)):
         for j in range(len(mat[0])):
@@ -60,14 +60,17 @@ def part2(mat: list[list[str]]):
                 nums = find_adj(mat, (i, j))
                 if len(nums) == 2:
                     s += nums[0] * nums[1]
-    print(s)
+    return s
+
+
+def get_input(file: str) -> list[list[str]]:
+    matrix = []
+    with open(file, "r") as f:
+        for line in f.readlines():
+            matrix.append(list(line.strip()))
+    return matrix
 
 
 if __name__ == "__main__":
-    matrix = []
-    with open("day3-input.txt", "r") as f:
-        for line in f.readlines():
-            matrix.append(list(line.strip()))
-    
-    # part1(matrix)
-    part2(matrix)
+    print(part1(get_input("day3-input.txt")))
+    print(part2(get_input("day3-input.txt")))

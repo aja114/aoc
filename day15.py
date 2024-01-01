@@ -71,7 +71,6 @@ def part2(file: str) -> int:
             add_to_box(box, label, int(action[1:]))
         if action[0] == "-":
             remove_from_box(box, label)
-    print(boxes)
     s = 0
     for box, lenses in boxes.items():
         for i, lens in enumerate(lenses):
@@ -80,4 +79,5 @@ def part2(file: str) -> int:
 
 
 if __name__ == "__main__":
+    print(part1("day15-input.txt"))
     print(part2("day15-input.txt"))

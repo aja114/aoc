@@ -70,6 +70,7 @@ def count_load(platform: list[list[str]]) -> int:
         s += c["O"] * (len(platform)-i)
     return s
 
+
 def pprint_plat(platform: list[list[str]]) -> None:
     for row in platform:
         print("".join(x for x in row))
@@ -78,7 +79,6 @@ def pprint_plat(platform: list[list[str]]) -> None:
 
 def part1(file: str) -> int:
     platform = get_input(file)
-    pprint_plat(platform)
     tilted_platform = tilt_north(platform)
     return count_load(tilted_platform)
 
@@ -93,8 +93,6 @@ def hash_plat(platform: list[list[str]]) -> str:
 
 def part2(file: str) -> int:
     platform = get_input(file)
-    pprint_plat(platform)
-    print()
     hash_list = []
     while True:
         platform = tilt_cycle(platform)
@@ -103,7 +101,6 @@ def part2(file: str) -> int:
             cycle_start = hash_list.index(hashed_plat)
             cycle_len = len(hash_list) - cycle_start
             cycle_pos = (1_000_000_000 - cycle_start) % cycle_len
-            print(cycle_start, cycle_len, cycle_pos)
             break
         hash_list.append(hashed_plat)
     
@@ -114,4 +111,5 @@ def part2(file: str) -> int:
 
 
 if __name__ == "__main__":
+    print(part1("day14-input.txt"))
     print(part2("day14-input.txt"))

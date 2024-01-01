@@ -119,7 +119,7 @@ def get_input_rev(file: str) -> tuple[list[int], MapperGraph]:
     return seeds, mapper_graph
 
 
-def part1(seeds: int, mapper_graph: MapperGraph):
+def part1(seeds: list[int], mapper_graph: MapperGraph):
     locations = []
     for seed in seeds:
         resource = "seed"
@@ -129,11 +129,10 @@ def part1(seeds: int, mapper_graph: MapperGraph):
             resource = map.destination_resource
             resource_id = map.map(resource_id)
         locations.append(resource_id)
-    
-    print(min(locations))
+    return min(locations)
 
 
-def part2(seeds: int, mapper_graph: MapperGraph):
+def part2(seeds: list[int], mapper_graph: MapperGraph) -> int:
     seed_pairs = list(sorted(
         ((seeds[i], seeds[i]+seeds[i+1]) for i in range(0, len(seeds), 2)),
         key=lambda x: x[0]
@@ -149,16 +148,10 @@ def part2(seeds: int, mapper_graph: MapperGraph):
             resource = map.destination_resource
             resource_id = map.map(resource_id)
         if in_sorted_ranges(resource_id, seed_pairs):
-            print(resource_id)
-            print(i)
-            return
+            return resource_id
         i += 1
 
 
 if __name__ == "__main__":
-    # seeds, mapper_graph = get_input("day5-input.txt")
-    # part1(seeds, mapper_graph)
-
-    seeds, mapper_graph = get_input_rev("day5-input.txt")
-    part2(seeds, mapper_graph)
-    
+    print(part1(*get_input("day5-input.txt")))
+    print(part2(*get_input_rev("day5-input.txt")))

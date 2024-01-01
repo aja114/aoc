@@ -62,17 +62,13 @@ def part2(file: str) -> int:
     matrices = get_input(file)
     s = 0    
     for i, mat in enumerate(matrices):
-        print(i)
-        print("\n".join("".join(x) for x in mat))
         if (r_mir := find_row_sim_with_smudge(mat)) is not None:
-            print(r_mir)
             s += r_mir * 100
         if (c_mir := find_col_sim_with_smudge(mat)) is not None:
-            print(c_mir)
             s += c_mir
-        print("\n")
     return s
 
 
 if __name__ == "__main__":
+    print(part1("day13-input.txt"))
     print(part2("day13-input.txt"))
