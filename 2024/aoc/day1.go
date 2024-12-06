@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import (
 	"fmt"
@@ -8,12 +8,6 @@ import (
 	"strconv"
 	"strings"
 )
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
 
 func getArr(file string) ([]int, []int) {
 	dat, err := os.ReadFile(file)
@@ -67,7 +61,7 @@ func part2() {
 	fmt.Println(dist)
 }
 
-func main() {
+func Day1() {
 	part1()
 	part2()
 }
