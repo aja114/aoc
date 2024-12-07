@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+type Day1 struct{}
+
 func getArr(file string) ([]int, []int) {
 	dat, err := os.ReadFile(file)
 	check(err)
@@ -19,6 +21,9 @@ func getArr(file string) ([]int, []int) {
 	var splitLine []string
 	for idx, line := range lines {
 		splitLine = strings.Split(line, "   ")
+		if len(splitLine) != 2 {
+			continue
+		}
 		n1, err := strconv.Atoi(splitLine[0])
 		check(err)
 		n2, err := strconv.Atoi(splitLine[1])
@@ -29,8 +34,8 @@ func getArr(file string) ([]int, []int) {
 	return arr1, arr2
 }
 
-func part1() {
-	arr1, arr2 := getArr("./day1-input.txt")
+func (d Day1) Part1(path string) {
+	arr1, arr2 := getArr(path)
 	slices.Sort(arr1)
 	slices.Sort(arr2)
 	dist := 0
@@ -42,8 +47,8 @@ func part1() {
 	fmt.Println(dist)
 }
 
-func part2() {
-	arr1, arr2 := getArr("./day1-input.txt")
+func (d Day1) Part2(path string) {
+	arr1, arr2 := getArr(path)
 	m := make(map[int]int)
 	for _, val := range arr1 {
 		m[val] = 0
@@ -59,9 +64,4 @@ func part2() {
 		dist += key * value
 	}
 	fmt.Println(dist)
-}
-
-func Day1() {
-	part1()
-	part2()
 }

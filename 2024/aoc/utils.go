@@ -5,3 +5,8 @@ func check(e error) {
 		panic(e)
 	}
 }
+
+type Day interface {
+	Part1(path string)
+	Part2(path string)
+}

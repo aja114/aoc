@@ -25,11 +25,16 @@ func main() {
 		aoc.PrepareDay(day)
 	case "run":
 		fmt.Printf("Running day %d\n", day)
+		var d aoc.Day
 		switch day {
 		case 1:
-			aoc.Day1()
+			d = aoc.Day1{}
 		case 2:
-			aoc.Day2()
+			d = aoc.Day2{}
+		default:
+			panic("Day does not exist.")
 		}
+		d.Part1(aoc.GetInputFile(day))
+		d.Part2(aoc.GetInputFile(day))
 	}
 }

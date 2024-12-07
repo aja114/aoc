@@ -25,7 +25,7 @@ func CreateNotExistingFile(path string) {
 
 func FetchInput(path string, day int) {
 	headerValue := os.Getenv("AOC_SESSION")
-	url := fmt.Sprintf("https://adventofcode.com/2023/day/%d/input", day)
+	url := fmt.Sprintf("https://adventofcode.com/2024/day/%d/input", day)
 
 	client := &http.Client{}
 
@@ -45,10 +45,15 @@ func FetchInput(path string, day int) {
 }
 
 func PrepareDay(day int) {
-	dir := path.Dir("aoc/.")
-	runFile := (path.Join(dir, fmt.Sprintf("day%d.go", day)))
-	inputFile := (path.Join(dir, fmt.Sprintf("day%d-input.txt", day)))
+	codeDir := path.Dir("aoc/.")
+	runFile := (path.Join(codeDir, fmt.Sprintf("day%d.go", day)))
+	inputFile := GetInputFile(day)
 	CreateNotExistingFile(runFile)
 	CreateNotExistingFile(inputFile)
 	FetchInput(inputFile, day)
+}
+
+func GetInputFile(day int) string {
+	inputDir := path.Dir("inputs/.")
+	return (path.Join(inputDir, fmt.Sprintf("day%d-input.txt", day)))
 }
