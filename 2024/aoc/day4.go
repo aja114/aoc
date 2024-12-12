@@ -1,9 +1,7 @@
 package aoc
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 type Day4 struct{}
@@ -106,19 +104,8 @@ func getOccurencesP1(x int, y int, arr []string) int {
 	return res
 }
 
-func (d Day4) getArr(path string) []string {
-	f, err := os.Open(path)
-	check(err)
-	arr := make([]string, 0)
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		arr = append(arr, scanner.Text())
-	}
-	return arr
-}
-
 func (d Day4) Part1(path string) {
-	arr := d.getArr(path)
+	arr := getMap(path)
 	h := len(arr)
 	w := len(arr[0])
 	res := 0
@@ -133,7 +120,7 @@ func (d Day4) Part1(path string) {
 }
 
 func (d Day4) Part2(path string) {
-	arr := d.getArr(path)
+	arr := getMap(path)
 	h := len(arr)
 	w := len(arr[0])
 	res := 0

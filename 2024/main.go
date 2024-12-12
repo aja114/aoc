@@ -37,6 +37,10 @@ func main() {
 			d = aoc.Day4{}
 		case 5:
 			d = aoc.Day5{}
+		case 6:
+			d = aoc.Day6{}
+		case 10:
+			d = aoc.Day10{}
 		default:
 			panic("Day does not exist.")
 		}
