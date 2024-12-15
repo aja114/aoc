@@ -1,7 +1,31 @@
-### Advent of code 2023 in Python
+### Advent of code 2023
 
-Personal solutions to the advent of code 2023.
+Personal solutions to the advent of code 2023 done in Python.
 
-Missing solutions are:
-- part 1: day 23-25
-- part 2: day 18, 20, 21, 23-25
+| Day | Part 1 | Part 2 |
+|-----|--------|--------|
+| 1   | ✅      | ✅      |
+| 2   | ✅      | ✅      |
+| 3   | ✅      | ✅      |
+| 4   | ✅      | ✅      |
+| 5   | ✅      | ✅      |
+| 6   | ✅      | ✅      |
+| 7   | ✅      | ✅      |
+| 8   | ✅      | ✅      |
+| 9   | ✅      | ✅      |
+| 10  | ✅      | ✅      |
+| 11  | ✅      | ✅      |
+| 12  | ✅      | ✅      |
+| 13  | ✅      | ✅      |
+| 14  | ✅      | ✅      |
+| 15  | ✅      | ✅      |
+| 16  | ✅      | ✅      |
+| 17  | ✅      | ✅      |
+| 18  | ✅      | ❌      |
+| 19  | ✅      | ✅      |
+| 20  | ✅      | ❌      |
+| 21  | ✅      | ❌      |
+| 22  | ✅      | ✅      |
+| 23  | ❌      | ❌      |
+| 24  | ❌      | ❌      |
+| 25  | ❌      | ❌      |
