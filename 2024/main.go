@@ -41,6 +41,10 @@ func main() {
 			d = aoc.Day6{}
 		case 7:
 			d = aoc.Day7{}
+		case 8:
+			d = aoc.Day8{}
+		case 9:
+			d = aoc.Day9{}
 		case 10:
 			d = aoc.Day10{}
 		default:

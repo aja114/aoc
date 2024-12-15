@@ -34,6 +34,18 @@ type Pos struct {
 	x, y int
 }
 
+func (p Pos) Sub(p1 Pos) Pos {
+	return Pos{x: p.x - p1.x, y: p.y - p1.y}
+}
+
+func (p Pos) Add(p1 Pos) Pos {
+	return Pos{x: p.x + p1.x, y: p.y + p1.y}
+}
+
+func (p Pos) Invert() Pos {
+	return Pos{x: -p.x, y: -p.y}
+}
+
 type PosDir struct {
 	x, y int
 	d    Dir
