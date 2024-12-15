@@ -196,4 +196,4 @@ def part1_2(file: str) -> tuple[int, int]:
 
 
 if __name__ == "__main__":
-    print(part1_2("day22-input.txt"))
+    print(part1_2("inputs/day22-input.txt"))

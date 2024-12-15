@@ -56,4 +56,4 @@ def part1(file: str) -> int:
 
 
 if __name__ == '__main__':
-    print(part1("day21-input.txt"))
+    print(part1("inputs/day21-input.txt"))

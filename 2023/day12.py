@@ -82,6 +82,6 @@ def part2(spring_inp: list[tuple[list[str]], tuple[int, ...]]) -> int:
 
 
 if __name__ == "__main__":
-    inp = get_input("day12-input.txt")
+    inp = get_input("inputs/day12-input.txt")
     print(part1(inp))
     print(part2(inp))

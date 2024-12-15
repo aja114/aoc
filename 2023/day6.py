@@ -55,8 +55,8 @@ def part2(time: int, dist: int):
 
 
 if __name__ == "__main__":
-    r = get_input("day6-input.txt")
+    r = get_input("inputs/day6-input.txt")
     print(part1(r))
     
-    t, d = get_input_no_kerning("day6-input.txt")
+    t, d = get_input_no_kerning("inputs/day6-input.txt")
     print(part2(t, d))

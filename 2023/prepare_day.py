@@ -7,7 +7,7 @@ import pathlib
 
 def create_files(day: int, day_input: str | None = None):
     p = pathlib.Path()
-    input_file = p / f"day{day}-input.txt"
+    input_file = p / f"inputs/day{day}-input.txt"
     input_file.touch(exist_ok=True)
     if day_input:
         input_file.write_text(day_input)

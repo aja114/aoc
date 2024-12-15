@@ -131,5 +131,5 @@ def part2(file: str):
 
 
 if __name__ == "__main__":
-    print(part1("day16-input.txt"))
-    print(part2("day16-input.txt"))
+    print(part1("inputs/day16-input.txt"))
+    print(part2("inputs/day16-input.txt"))

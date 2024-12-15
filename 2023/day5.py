@@ -153,5 +153,5 @@ def part2(seeds: list[int], mapper_graph: MapperGraph) -> int:
 
 
 if __name__ == "__main__":
-    print(part1(*get_input("day5-input.txt")))
-    print(part2(*get_input_rev("day5-input.txt")))
+    print(part1(*get_input("inputs/day5-input.txt")))
+    print(part2(*get_input_rev("inputs/day5-input.txt")))

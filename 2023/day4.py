@@ -43,5 +43,5 @@ def part2(cards: dict[int, tuple[list[str], list[str]]]) -> int:
 
 
 if __name__ == "__main__":
-    print(part1(get_input("day4-input.txt")))
-    print(part2(get_input("day4-input.txt")))
+    print(part1(get_input("inputs/day4-input.txt")))
+    print(part2(get_input("inputs/day4-input.txt")))

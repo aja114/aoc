@@ -72,5 +72,5 @@ def get_input(file: str) -> list[list[str]]:
 
 
 if __name__ == "__main__":
-    print(part1(get_input("day3-input.txt")))
-    print(part2(get_input("day3-input.txt")))
+    print(part1(get_input("inputs/day3-input.txt")))
+    print(part2(get_input("inputs/day3-input.txt")))

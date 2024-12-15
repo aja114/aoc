@@ -97,8 +97,8 @@ def get_input_with_joker(file: str) -> list[Hand]:
 
 
 if __name__ == "__main__":
-    hands = get_input("day7-input.txt")
+    hands = get_input("inputs/day7-input.txt")
     print(part1(hands))
 
-    hands_with_joker = get_input_with_joker("day7-input.txt")
+    hands_with_joker = get_input_with_joker("inputs/day7-input.txt")
     print(part2(hands_with_joker))
