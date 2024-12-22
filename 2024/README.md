@@ -16,7 +16,7 @@ Personal solutions to the advent of code 2024 done in Golang.
 | 10  | ✅      | ✅      |
 | 11  | ✅      | ✅      |
 | 12  | ✅      | ✅      |
-| 13  | ❌      | ❌      |
+| 13  | ✅      | ✅      |
 | 14  | ❌      | ❌      |
 | 15  | ❌      | ❌      |
 | 16  | ❌      | ❌      |
