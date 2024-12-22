@@ -73,7 +73,7 @@ func (p PosDir) toPos() Pos {
 	}
 }
 
-func getAdjacent(pos Pos, arr []string) []Pos {
+func (pos Pos) GetAdjacent(arr []string) []Pos {
 	up := Pos{
 		x: pos.x - 1,
 		y: pos.y,

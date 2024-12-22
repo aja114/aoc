@@ -9,7 +9,7 @@ func reachableLevels(pos Pos, arr []string, targets map[Pos]int) {
 		targets[pos] += 1
 	}
 	target := int(arr[pos.x][pos.y]) + 1
-	adjacents := getAdjacent(pos, arr)
+	adjacents := pos.GetAdjacent(arr)
 	for _, adjacent := range adjacents {
 		if int(arr[adjacent.x][adjacent.y]) == target {
 			reachableLevels(adjacent, arr, targets)
