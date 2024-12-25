@@ -3,6 +3,7 @@ package aoc
 import (
 	"fmt"
 	"math"
+	"sync"
 )
 
 type Day16 struct{}
@@ -15,11 +16,12 @@ type Path struct {
 	hist  []Pos
 }
 
-func (p Path) getNextPaths(m []string, seen map[Pos]int) []Path {
+func (p Path) getNextPaths(m []string, seen map[Pos]int, results chan<- []Path) {
 	directions := []Dir{Up, Right, Down, Left}
 	score, s := seen[p.pos]
 	if s && score < p.score {
-		return []Path{}
+		results <- []Path{}
+		return
 	}
 	nextPaths := make([]Path, 0)
 	for _, dir := range directions {
@@ -39,7 +41,7 @@ func (p Path) getNextPaths(m []string, seen map[Pos]int) []Path {
 		}
 		nextPaths = append(nextPaths, nextPath)
 	}
-	return nextPaths
+	results <- nextPaths
 }
 
 func (p Path) isSuccessful(m []string) bool {
@@ -63,12 +65,25 @@ func (d Day16) GetSuccessfulPaths(m []string) []Path {
 	seen := make(map[Pos]int)
 	for len(paths) > 0 {
 		nexPaths := []Path{}
+		results := make(chan []Path)
+		var wg sync.WaitGroup
 		for _, path := range paths {
-			if path.isSuccessful(m) {
-				successfulPaths = append(successfulPaths, path)
-				continue
-			}
-			nexPaths = append(nexPaths, path.getNextPaths(m, seen)...)
+			wg.Add(1)
+			go func(p Path) {
+				defer wg.Done()
+				if p.isSuccessful(m) {
+					successfulPaths = append(successfulPaths, p)
+				} else {
+					p.getNextPaths(m, seen, results)
+				}
+			}(path)
+		}
+		go func() {
+			wg.Wait()
+			close(results)
+		}()
+		for result := range results {
+			nexPaths = append(nexPaths, result...)
 		}
 		// Update the cache
 		for _, path := range paths {
