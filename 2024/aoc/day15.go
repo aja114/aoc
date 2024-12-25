@@ -75,21 +75,6 @@ func (d Day15) Move(m [][]rune, pos PosDir) Pos {
 	panic("Unkown element met")
 }
 
-func (d Day15) PrintMap(m [][]rune, pos Pos) {
-	for i, line := range m {
-		for j, el := range line {
-			curPos := Pos{x: i, y: j}
-			if curPos == pos {
-				fmt.Printf("@")
-			} else {
-				fmt.Printf("%c", el)
-			}
-		}
-		fmt.Printf("\n")
-	}
-	fmt.Println()
-}
-
 func (d Day15) CalcScore(m [][]rune, el rune) int {
 	res := 0
 	for i, line := range m {
@@ -102,22 +87,9 @@ func (d Day15) CalcScore(m [][]rune, el rune) int {
 	return res
 }
 
-func (d Day15) GetStartPos(m [][]rune) Pos {
-	var pos Pos
-	for i, line := range m {
-		for j := range line {
-			if m[i][j] == '@' {
-				pos = Pos{x: i, y: j}
-				m[i][j] = '.'
-			}
-		}
-	}
-	return pos
-}
-
 func (d Day15) Part1(path string) {
 	m, dirs := d.GetMapDir(path)
-	pos := d.GetStartPos(m)
+	pos := GetPosRunes(m, '@', true)
 	for _, dir := range dirs {
 		pos = d.Move(m, PosDir{x: pos.x, y: pos.y, d: dir})
 	}
@@ -268,7 +240,7 @@ func (d Day15) Move2(m [][]rune, pos PosDir) Pos {
 func (d Day15) Part2(path string) {
 	m, dirs := d.GetMapDir(path)
 	m = d.UpdateMap(m)
-	pos := d.GetStartPos(m)
+	pos := GetPosRunes(m, '@', true)
 	for _, dir := range dirs {
 		pos = d.Move2(m, PosDir{x: pos.x, y: pos.y, d: dir})
 	}

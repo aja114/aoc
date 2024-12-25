@@ -2,6 +2,7 @@ package aoc
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"slices"
 )
@@ -26,6 +27,35 @@ func getMap(path string) []string {
 		arr = append(arr, scanner.Text())
 	}
 	return arr
+}
+
+func GetMapRunes(path string) [][]rune {
+	f, err := os.Open(path)
+	check(err)
+	m := make([][]rune, 0)
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		m = append(m, []rune(line))
+	}
+	return m
+}
+
+func PrintMapRunes(m [][]rune) {
+	for _, line := range m {
+		for _, el := range line {
+			fmt.Printf("%c", el)
+		}
+		fmt.Printf("\n")
+	}
+	fmt.Println()
+}
+
+func PrintMap(m []string) {
+	for _, line := range m {
+		fmt.Println(line)
+	}
+	fmt.Println()
 }
 
 type Dir int
@@ -124,7 +154,7 @@ func (pos Pos) GetAdjacent(arr []string) []Pos {
 	return slices.DeleteFunc(adj, func(x Pos) bool { return !x.isValid(arr) })
 }
 
-func getPos(arr []string, target rune) Pos {
+func GetPos(arr []string, target rune) Pos {
 	for i, l := range arr {
 		for j, el := range l {
 			if el == target {
@@ -136,6 +166,21 @@ func getPos(arr []string, target rune) Pos {
 		}
 	}
 	return Pos{}
+}
+
+func GetPosRunes(m [][]rune, target rune, replace bool) Pos {
+	var pos Pos
+	for i, line := range m {
+		for j := range line {
+			if m[i][j] == target {
+				pos = Pos{x: i, y: j}
+				if replace {
+					m[i][j] = '.'
+				}
+			}
+		}
+	}
+	return pos
 }
 
 func getAllPos(arr []string, target rune) []Pos {

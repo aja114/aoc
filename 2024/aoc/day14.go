@@ -101,11 +101,11 @@ func (d Day14) Part1(path string) {
 		positions = append(positions, pos)
 		CalcScore(pos, g, scores)
 	}
-	PrintMap(g, positions)
+	d.PrintMap(g, positions)
 	fmt.Println(scores[0] * scores[1] * scores[2] * scores[3])
 }
 
-func PrintMap(g GridDim, pos []Pos) {
+func (d Day14) PrintMap(g GridDim, pos []Pos) {
 	m := make([][]int, g.x)
 	for i := range m {
 		m[i] = make([]int, g.y)
@@ -163,6 +163,6 @@ func (d Day14) Part2(path string) {
 			posVel[j] = posVelEl
 		}
 		fmt.Println(i)
-		PrintMap(g, positions)
+		d.PrintMap(g, positions)
 	}
 }
