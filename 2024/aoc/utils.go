@@ -58,6 +58,13 @@ const (
 	Left
 )
 
+var DirDelta = map[Dir]Pos{
+	Up:    {x: -1, y: 0},
+	Right: {x: 0, y: 1},
+	Down:  {x: 1, y: 0},
+	Left:  {x: 0, y: -1},
+}
+
 func (p Pos) isValid(arr []string) bool {
 	return p.x >= 0 && p.x < len(arr) && p.y >= 0 && p.y < len(arr[0])
 }
@@ -71,6 +78,29 @@ func (p PosDir) toPos() Pos {
 		x: p.x,
 		y: p.y,
 	}
+}
+
+func (p Pos) WithDir(dir Dir) PosDir {
+	return PosDir{
+		x: p.x,
+		y: p.y,
+		d: dir,
+	}
+}
+
+func (p PosDir) getNext() Pos {
+	return p.toPos().Add(DirDelta[p.d])
+}
+
+func GetEl(m [][]rune, pos Pos) rune {
+	return m[pos.x][pos.y]
+}
+
+func ternary[T any](condition bool, trueVal, falseVal T) T {
+	if condition {
+		return trueVal
+	}
+	return falseVal
 }
 
 func (pos Pos) GetAdjacent(arr []string) []Pos {
