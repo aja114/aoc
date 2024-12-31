@@ -46,6 +46,7 @@ func getTarget(line string) Pos {
 func getGames(path string) []Game {
 	f, err := os.Open(path)
 	check(err)
+	defer f.Close()
 	scanner := bufio.NewScanner(f)
 	i := 0
 	var game Game
@@ -69,13 +70,6 @@ func getGames(path string) []Game {
 		i += 1
 	}
 	return games
-}
-
-func compScore1(s Score) int {
-	if s.a > 100 || s.b > 100 {
-		return int(math.Inf(1))
-	}
-	return s.a*PointsA + s.b*PointsB
 }
 
 func compScore2(s Score) int {

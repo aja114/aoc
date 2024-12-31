@@ -26,6 +26,7 @@ func GetDir(r rune) Dir {
 func (d Day15) GetMapDir(path string) ([][]rune, []Dir) {
 	f, err := os.Open(path)
 	check(err)
+	defer f.Close()
 	scanner := bufio.NewScanner(f)
 	directions := make([]Dir, 0)
 	m := make([][]rune, 0)

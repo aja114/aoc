@@ -46,6 +46,7 @@ func ParseLine(l string) PosVel {
 func ParsePos(path string) []PosVel {
 	f, err := os.Open(path)
 	check(err)
+	defer f.Close()
 	posVel := make([]PosVel, 0)
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {

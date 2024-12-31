@@ -20,6 +20,7 @@ const (
 func getOperations(path string) [][]int64 {
 	f, err := os.Open(path)
 	check(err)
+	defer f.Close()
 	scanner := bufio.NewScanner(f)
 	ops := make([][]int64, 0)
 	for scanner.Scan() {
@@ -27,6 +28,7 @@ func getOperations(path string) [][]int64 {
 		values := strings.Split(l, " ")
 		targetStr := values[0]
 		target, err := strconv.ParseInt(targetStr[:len(targetStr)-1], 10, 64)
+		check(err)
 		operands := make([]int64, len(values))
 		operands[0] = target
 		for i, val := range values[1:] {

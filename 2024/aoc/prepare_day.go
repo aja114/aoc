@@ -14,8 +14,10 @@ func CreateNotExistingFile(path string) {
 	var err error
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		file, err = os.Create(path)
+		check(err)
 	} else {
 		file, err = os.Open(path)
+		check(err)
 	}
 	defer file.Close()
 	if err != nil {

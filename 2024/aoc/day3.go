@@ -33,7 +33,7 @@ func calcMul(s string) int {
 }
 
 func findAndCalc(s string) int {
-	r, err := regexp.Compile("mul\\([0-9]{1,3},[0-9]{1,3}\\)")
+	r, err := regexp.Compile(`mul\([0-9]{1,3},[0-9]{1,3}\)`)
 	check(err)
 	res := 0
 	for _, el := range r.FindAllString(s, -1) {

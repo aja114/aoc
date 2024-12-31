@@ -93,6 +93,7 @@ func impossibleUpdateScore(update string, depMap DepMap) int {
 func (d Day5) getUpdDep(path string) ([]string, DepMap) {
 	f, err := os.Open(path)
 	check(err)
+	defer f.Close()
 	scanner := bufio.NewScanner(f)
 	dependecies := make([]string, 0)
 	updates := make([]string, 0)

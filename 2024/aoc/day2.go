@@ -15,6 +15,7 @@ type Day2 struct{}
 func GetArr(path string) [][]int {
 	file, err := os.Open(path)
 	check(err)
+	defer file.Close()
 	var arr [][]int = make([][]int, 0)
 
 	scanner := bufio.NewScanner(file)
