@@ -96,7 +96,11 @@ var DirDelta = map[Dir]Pos{
 }
 
 func (p Pos) isValid(arr []string) bool {
-	return p.x >= 0 && p.x < len(arr) && p.y >= 0 && p.y < len(arr[0])
+	return p.isValidGrid(len(arr), len(arr[0]))
+}
+
+func (p Pos) isValidGrid(maxX, maxY int) bool {
+	return p.x >= 0 && p.x < maxX && p.y >= 0 && p.y < maxY
 }
 
 func (p PosDir) isValid(arr []string) bool {
@@ -133,7 +137,7 @@ func ternary[T any](condition bool, trueVal, falseVal T) T {
 	return falseVal
 }
 
-func (pos Pos) GetAdjacent(arr []string) []Pos {
+func (pos Pos) GetAdjacentGrid(maxX, maxY int) []Pos {
 	up := Pos{
 		x: pos.x - 1,
 		y: pos.y,
@@ -151,7 +155,11 @@ func (pos Pos) GetAdjacent(arr []string) []Pos {
 		y: pos.y - 1,
 	}
 	adj := []Pos{up, right, down, left}
-	return slices.DeleteFunc(adj, func(x Pos) bool { return !x.isValid(arr) })
+	return slices.DeleteFunc(adj, func(x Pos) bool { return !x.isValidGrid(maxX, maxY) })
+}
+
+func (pos Pos) GetAdjacent(arr []string) []Pos {
+	return pos.GetAdjacentGrid(len(arr), len(arr[0]))
 }
 
 func GetPos(arr []string, target rune) Pos {
