@@ -4,6 +4,7 @@ import (
 	"aoc/aoc"
 	"fmt"
 	"os"
+	"runtime/pprof"
 	"strconv"
 )
 
@@ -18,6 +19,21 @@ func main() {
 	dayStr := os.Args[2]
 	day, err := strconv.Atoi(dayStr)
 	check(err)
+
+	// Create a CPU profile file
+	f, err := os.Create("cpu.pprof")
+	if err != nil {
+		fmt.Println("could not create CPU profile: ", err)
+		return
+	}
+	defer f.Close()
+
+	// Start CPU profiling
+	if err := pprof.StartCPUProfile(f); err != nil {
+		fmt.Println("could not start CPU profile: ", err)
+		return
+	}
+	defer pprof.StopCPUProfile()
 
 	switch command {
 	case "prepare":
@@ -65,6 +81,8 @@ func main() {
 			d = aoc.Day18{}
 		case 19:
 			d = aoc.Day19{}
+		case 20:
+			d = aoc.Day20{}
 		default:
 			panic("Day does not exist.")
 		}
