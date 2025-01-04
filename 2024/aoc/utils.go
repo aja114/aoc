@@ -3,6 +3,7 @@ package aoc
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"slices"
 )
@@ -204,4 +205,8 @@ func getAllPos(arr []string, target rune) []Pos {
 		}
 	}
 	return positions
+}
+
+func IntPow(x int, y int) int {
+	return int(math.Pow(float64(x), float64(y)))
 }
