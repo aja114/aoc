@@ -7,27 +7,18 @@ import (
 type Day20 struct{}
 
 type Path20 struct {
-	hasCheated bool
 	pos        Pos
-	savedTime  int
-	parent     *Path20
+	hasCheated bool
+	inCheat    bool
+	numCheat   int
+	startCheat Pos
+	endCheat   Pos
+	time       int
 }
 
-func (p Path20) String() string {
-	return fmt.Sprintf("{cheated: %v, pos: %v, savedTime: %d}", p.hasCheated, p.pos, p.savedTime)
-}
-
-func (p *Path20) seen(pos Pos) bool {
-	curPath := p
-	i := 0
-	for curPath != nil && i < 3 {
-		if curPath.pos == pos {
-			return true
-		}
-		curPath = curPath.parent
-		i += 1
-	}
-	return false
+type CheatPath struct {
+	start Pos
+	end   Pos
 }
 
 func GetBestTime(m []string, start Pos, end Pos) int {
@@ -57,6 +48,75 @@ func GetBestTime(m []string, start Pos, end Pos) int {
 	return -1
 }
 
+func GetCheatedPath(
+	m []string, path Path20, seen map[Pos]bool, end Pos, time int, maxTime int, seenCheat map[CheatPath]Path20,
+) int {
+	if time > maxTime {
+		return 0
+	}
+	if path.pos == end {
+		path.time = time
+		if cheatPath, s := seenCheat[CheatPath{path.startCheat, path.endCheat}]; s {
+			if path.time < cheatPath.time {
+				seenCheat[CheatPath{path.startCheat, path.endCheat}] = path
+			}
+		} else {
+			seenCheat[CheatPath{path.startCheat, path.endCheat}] = path
+		}
+		return 1
+	}
+	adjacents := path.pos.GetAdjacent(m)
+	count := 0
+	seen[path.pos] = true
+	for _, adj := range adjacents {
+		if s, e := seen[adj]; s && e {
+			continue
+		}
+		if m[adj.x][adj.y] == '#' && (!path.hasCheated || (path.inCheat && path.numCheat > 0)) {
+			count += GetCheatedPath(
+				m, Path20{
+					pos:        adj,
+					hasCheated: true,
+					inCheat:    true,
+					numCheat:   path.numCheat - 1,
+					startCheat: ternary(path.inCheat, path.startCheat, path.pos),
+				}, seen, end, time+1, maxTime, seenCheat,
+			)
+		}
+		if m[adj.x][adj.y] != '#' {
+			if path.inCheat {
+				if _, s := seenCheat[CheatPath{path.startCheat, adj}]; s {
+					continue
+				}
+				count += GetCheatedPath(
+					m, Path20{
+						pos:        adj,
+						hasCheated: path.hasCheated,
+						inCheat:    false,
+						numCheat:   path.numCheat,
+						startCheat: path.startCheat,
+						endCheat:   adj,
+					},
+					seen, end, time+1, maxTime, seenCheat,
+				)
+			} else {
+				count += GetCheatedPath(
+					m, Path20{
+						pos:        adj,
+						hasCheated: path.hasCheated,
+						inCheat:    path.inCheat,
+						numCheat:   path.numCheat,
+						startCheat: path.startCheat,
+						endCheat:   path.endCheat,
+					}, seen, end, time+1, maxTime, seenCheat,
+				)
+			}
+		}
+	}
+	seen[path.pos] = false
+	return count
+}
+
 func (d Day20) Part1(path string) {
 	m := getMap(path)
 	start := GetPos(m, 'S')
@@ -64,38 +124,18 @@ func (d Day20) Part1(path string) {
 	fmt.Println(start, end)
 	bestTime := GetBestTime(m, start, end)
 	fmt.Println("bestTime", bestTime)
-	startPath := Path20{false, start, 0, nil}
-	curPath := []Path20{startPath}
-	totalTime := 0
-	successfulPath := make([]Path20, 0)
-	for len(curPath) > 0 {
-		nextPath := make([]Path20, 0)
-		if totalTime > bestTime-100 {
-			break
-		}
-		for _, path := range curPath {
-			if path.pos == end {
-				path.savedTime = bestTime - totalTime
-				successfulPath = append(successfulPath, path)
-				continue
-			}
-			adjacents := path.pos.GetAdjacent(m)
-			for _, adj := range adjacents {
-				if path.seen(adj) {
-					continue
-				}
-				if m[adj.x][adj.y] == '#' && !path.hasCheated {
-					nextPath = append(nextPath, Path20{true, adj, 0, &path})
-				}
-				if m[adj.x][adj.y] != '#' {
-					nextPath = append(nextPath, Path20{path.hasCheated, adj, 0, &path})
-				}
-			}
-		}
-		curPath = nextPath
-		totalTime += 1
+	startPath := Path20{pos: start, numCheat: 20}
+	cheatPath := map[CheatPath]Path20{}
+	fmt.Println(GetCheatedPath(m, startPath, make(map[Pos]bool), end, 0, bestTime-50, cheatPath))
+	fmt.Println(len(cheatPath))
+
+	countByImp := make(map[int]int)
+	for _, p := range cheatPath {
+		countByImp[bestTime-p.time] += 1
+		fmt.Println(p)
 	}
-	fmt.Println(len(successfulPath))
+
+	fmt.Println(countByImp)
 }
 
 func (d Day20) Part2(path string) {
