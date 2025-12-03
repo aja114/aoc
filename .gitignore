@@ -2,3 +2,4 @@
 *.txt
 *.txt.test
 env
+node_modules
