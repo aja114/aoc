@@ -14,7 +14,7 @@ function countPosZero(rotations: string[], countIntermediate: boolean){
       if (x.length == 0){
         return
       }
-      const dir: "L" | "R" = x[0]
+      const dir: "L" | "R" = x[0] as "R" | "L"
       const val: number = Number(x.slice(1))
       const f = factor[dir]
       let newPos = pos + f * val % 100
