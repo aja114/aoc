@@ -1,4 +1,4 @@
-import { readInput } from "../utils/file.ts"
+import { readInput } from "../utils/helpers.ts"
 
 function _isRepeatedChar(s: string, j: number): boolean{
     // console.log("Checking for symbol", s.slice(0, j))
@@ -34,7 +34,7 @@ function isRepeated(id: number, midOnly: boolean): boolean{
 }
 
 function partCode(midOnly: boolean){
-    const repeatedIds = []
+    const repeatedIds: number[] = []
     let repeatedIdsSum = 0
     const inp = readInput("day2.txt")
     const ranges = inp.split(",")

@@ -1,4 +1,4 @@
-import { readInput } from "../utils/file.ts"
+import { readInput } from "../utils/helpers.ts"
 
 const START_DIAL = 50
 const factor = {

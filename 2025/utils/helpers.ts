@@ -89,3 +89,11 @@ export function getAdjacentPos<T>(pos: Pos, grid: Grid<T>): Pos[]{
     )
     return res
 }
+
+export function mult(arr: number[]){
+    return arr.reduce((a, b) => a * b, 1)
+}
+
+export function sum(arr: number[]): number{
+    return arr.reduce((a, b) => a + b, 0)
+}

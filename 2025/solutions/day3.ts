@@ -1,4 +1,4 @@
-import { readInput } from "@utils/file.ts"
+import { readInput } from "@utils/helpers.ts"
 
 function part1(){
     const inp = readInput("day3.txt")
