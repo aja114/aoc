@@ -93,22 +93,20 @@ function part2(){
     const points = getPoints()
     const distHeap = getDistHeap(points)
     const circuits: Record<string, Set<Point>> = {}
-    let last = undefined;
+    let d = undefined;
+    // Keep going until we've reached a single circuit
     while ((Object.keys(circuits).length != 1) || (Object.values(circuits)[0]?.size != points.length)){
-        const d = distHeap.pop() as Dist;
-        last = d
+        d = distHeap.pop() as Dist;
         appendToCircuits(circuits, new Set([d.p1, d.p2]))
-        // for logging
-        // const circuitLength = Object.values(circuits).map((v) => v.size).toSorted((a, b) => b - a)
-        // console.log(circuitLength[0])
     }
-    if (last !== undefined){
-        console.log(last.p1, last.p2)
-        console.log(last.p1.x * last.p2.x)
+    if (d !== undefined){
+        console.log(d.p1, d.p2)
+        console.log(d.p1.x * d.p2.x)
     }
 }
 
 function main(){
+    part1()
     part2()
 }
 
